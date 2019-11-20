@@ -48,3 +48,9 @@ body
 	display:flex;
 	flex-direction:column;
 }
+.pagination
+{
+	display: grid;
+	grid-template-columns: 30% 30% 30%;
+	grid-column-gap: 1em;
+}

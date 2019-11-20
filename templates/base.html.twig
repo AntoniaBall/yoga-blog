@@ -16,10 +16,13 @@
 			<div class="subtitle">
 				{% block subtitle %}<nav>A PROPOS DE CE BLOG</nav>{% endblock %}
 			</div>
-	            <div class="wrapper">
-		        	<div>{% block content %}{% endblock %}</div>
-					<div class="aside">{% block aside %}ASIDE{% endblock %}</div>
-		        </div>
+	        <div class="wrapper">
+		        <div>{% block content %}{% endblock %}</div>
+				<div class="aside">{% block aside %}ASIDE{% endblock %}</div>
+		    </div>
+
+		    {% block pagination %}{% endblock %}
+		    	{#Add a pagination #}
 	    {% endblock %}
 	</div>
     </body>
