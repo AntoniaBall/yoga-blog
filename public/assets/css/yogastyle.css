@@ -1,21 +1,8 @@
-*
-{
-	margin:0;
-	padding:0;
-}
-
 header
 {
 	background-color: grey;
 	height: 200px;
 }
-
-nav
-{
-	height:200px;
-	background-color: lightgrey;
-}
-
 body,html
 {
 	height: 100%;
@@ -24,8 +11,14 @@ body,html
 body
 {
 	text-align: center;
+	background-size: 100%
 }
 
+.subtitle
+{
+	height:200px;
+	background-color: lightgrey;
+}
 
 .main
 {
@@ -34,9 +27,24 @@ body
 
 .wrapper
 {
-	padding : 1em;
+	padding : 2em;
 	display:grid;
-	grid-template-columns: 80% 20%;
+	grid-template-columns: 90% 10%;
 	grid-column-gap: 2em;
 	width:90%;
+}
+
+.conteneurliste
+{
+	display:flex;
+	flex-direction:column;
+	flex-wrap: wrap;
+	width:80%;
+	background-color: rgba(250,250,250,180);
+}
+
+.article_style
+{
+	display:flex;
+	flex-direction:column;
 }

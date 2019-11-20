@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.titre}}
+{% endblock %}
+
+{% block subtitle %}
+	<div class="subtitle">
+		<div class="article_title"><h2>{{ article.titre}}</h2></div>
+		<div class="article_date">{{ article.date|date("d/m/y")}}</div>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="article_content">{{ article.contenu|raw }}</div>
+{% endblock %}

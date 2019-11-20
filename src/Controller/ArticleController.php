@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ArticleController extends AbstractController
 {
 	/**
-	* @Route("/list"), name ="listbillets"
+	* @Route("/home", name ="listbillets")
 	*
 	*/
 	public function getAllArticles()
@@ -24,4 +24,20 @@ class ArticleController extends AbstractController
 		return $this->render('articles.html.twig',
 			['articles' => $articles]);
 	}
+
+	/**
+	* @Route("/article/{articleId}", name="showArticle")
+	*
+	*/
+	public function showArticle($articleId)
+	{	
+		$repository = $this->getDoctrine()
+					->getRepository(Article::class);
+		
+		$article = $repository->find($articleId);
+
+			return $this->render('article.html.twig',
+			['article' => $article] );
+	}
+	
 }

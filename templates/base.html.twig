@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-        	<link rel="stylesheet" type="text/css" href="assets\css\yogastyle.css">
+        	<link rel="stylesheet" type="text/css" href="/assets/css/yogastyle.css">
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </head>
@@ -12,34 +12,15 @@
     <body>
     <div id ="main">
 	    {% block body %}
-	    	<header>{% block header %}YOGA BLOG/HEADER{% endblock %}</header>
-			{% block nav %}<nav>A PROPOS DE CE BLOG</nav>{% endblock %}
-	        
+	    	{% block header %}<header>YOGA BLOG/HEADER</header>{% endblock %}
+			<div class="subtitle">
+				{% block subtitle %}<nav>A PROPOS DE CE BLOG</nav>{% endblock %}
+			</div>
 	            <div class="wrapper">
-		        	<div>{% block content %}
-		        		Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-		        		 sed do eiusmod tempor incididunt ut labore et dolore magna
-		        		 aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-		        		 ullamco laboris nisi ut aliquip ex ea commodoconsequat. 
-		        	Duis aute irure dolor in reprehenderit in voluptate velit esse
-		        	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-		        	cupidatat nonproident, sunt in culpa qui officia deserunt mollit
-		        	anim id est laborum.
-		        {% endblock %}</div>
-		        <div class="aside">{% block aside %}ASIDE
-		        		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-		        		do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-		        		Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris
-		        		 nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor i
-		        		  reprehenderit in voluptate velit essecillum dolore eu fugiat nulla 
-		        		  pariatur. Excepteur sint occaecat cupidatat non
-		        		proident, sunt in culpa qui officia deserunt mollit anim
-		        		id est laborum.
-		        	{% endblock %}
-		        </div>
+		        	<div>{% block content %}{% endblock %}</div>
+					<div class="aside">{% block aside %}ASIDE{% endblock %}</div>
 		        </div>
 	    {% endblock %}
 	</div>
     </body>
 </html>
-

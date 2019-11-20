@@ -9,15 +9,23 @@
 		<p>Reviens plus tard, il n'y a rien.</p>
 	{% else %}
 	{% for article in articles %}
-		<section>
-		<h2>{{ article.titre}}</h2>
-		<article>
-		<div>
-			{{ article.contenu }}
-		</div>
-			{{ article.date|date("d/m/y")}}
-		</article>
-	</section>
+			<section>
+			<div class="conteneurliste">
+				<div class="article_style">
+					<h2>{{ article.titre}}</h2>
+					<article>
+					<div>
+						{{ article.contenu|slice(1,100)}}
+					</div>
+					<div>
+						{{ article.date|date("d/m/y")}} 
+					</div>
+					<a href="{{ path('showArticle',{ articleId : article.id } ) }}">
+					Lire plus -></a>
+					</article>
+				</div>
+			</div>
+			</section>
 	{% endfor %}
 	
 	{% endif %}
