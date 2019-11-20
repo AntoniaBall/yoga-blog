@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Titre des articles enregistrés{% endblock %}
+
+{# voici une liste de tableaux dans articles, fais ce que tu veux avec #}
+
+{% block content %}
+	{% if articles is empty %}
+		<p>Reviens plus tard, il n'y a rien.</p>
+	{% else %}
+	{% for article in articles %}
+		<section>
+		<h2>{{ article.titre}}</h2>
+		<article>
+		<div>
+			{{ article.contenu }}
+		</div>
+			{{ article.date|date("d/m/y")}}
+		</article>
+	</section>
+	{% endfor %}
+	
+	{% endif %}
+{% endblock %}

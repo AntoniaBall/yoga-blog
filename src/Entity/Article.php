@@ -58,7 +58,7 @@ class Article
         return $this->date;
     }
 
-    public function setDate(string $titre)
+    public function setDate($date)
     {
         $this->date = $date;
 
@@ -70,7 +70,7 @@ class Article
         return $this->contenu;
     }
 
-    public function setContenu(text $contenu)
+    public function setContenu($contenu)
     {
         $this->contenu = $contenu;
 

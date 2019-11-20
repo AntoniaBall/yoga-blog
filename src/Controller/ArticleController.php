@@ -9,5 +9,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-	
+	/**
+	* @Route("/list"), name ="listbillets"
+	*
+	*/
+	public function getAllArticles()
+	{
+		//pss, repository !!
+		$repository = $this->getDoctrine()
+					->getRepository(Article::class);
+		
+		$articles = $repository->findAll();
+
+		return $this->render('articles.html.twig',
+			['articles' => $articles]);
+	}
 }
