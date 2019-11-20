@@ -36,47 +36,47 @@ class Article
      */
     private $category;
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
+    public function getTitre()
     {
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitre($titre)
     {
         $this->titre = $titre;
 
         return $this;
     }
 
-       public function getdate(): ?date("d/m/y")
+       public function getdate()
     {
         return $this->date;
     }
 
-    public function setDate(string $titre): self
+    public function setDate(string $titre)
     {
         $this->date = $date;
 
         return $this;
     }
 
-       public function getContenu(): ?text
+       public function getContenu()
     {
         return $this->contenu;
     }
 
-    public function setContenu(text $contenu): self
+    public function setContenu(text $contenu)
     {
         $this->contenu = $contenu;
 
         return $this;
     }
-    public function setCategory() : self
+    public function setCategory()
     {
         $this->category = $category;
 

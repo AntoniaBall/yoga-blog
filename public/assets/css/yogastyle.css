@@ -1,0 +1,41 @@
+*
+{
+	margin:0;
+	padding:0;
+}
+
+header
+{
+	background-color: grey;
+	height: 200px;
+}
+
+nav
+{
+	height:200px;
+	background-color: lightgrey;
+}
+
+body,html
+{
+	height: 100%;
+}
+
+body
+{
+	text-align: center;
+}
+
+
+.main
+{
+	/* principal conteneur margin et padding */
+}
+
+.wrapper
+{
+	padding : 1em;
+	display:grid;
+	grid-template-columns: 60% 40%;
+	grid-column-gap: 2em;
+}
