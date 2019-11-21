@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ article.titre}}
-{% endblock %}
+{% block title %}Un article{% endblock %}
 
 {% block subtitle %}
 	<div class="subtitle">
@@ -14,10 +13,3 @@
 	<div class="article_content">{{ article.contenu|raw }}</div>
 {% endblock %}
 
-{% block pagination %}
-	<div class="pagination">
-		<a href="#"> << Précedent</a>
-		<a href="path('home')">Retourner à la page accueil</a>
-		<a href="#">Suivant >></a>
-	</div>
-{% endblock %}
