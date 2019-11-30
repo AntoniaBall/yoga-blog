@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title%}{% endblock %}
+
+{% block subtitle%}Ajouter un article{% endblock %}
+
+{% block content%}
+	{% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+    	</div>
+    {% endfor %}
+<div class ="formAdd">
+<div class="container">
+	{{form_start(form)}}
+		<div class="row">
+			<div class="col-sm-3">{{form_label(form.titre)}}</div>
+			<div class="col">{{form_widget(form.titre)}}</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-3">{{form_label(form.date)}}</div>
+			<div class="col">{{form_widget(form.date)}}</div>
+			<div class="w-100"></div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-3">{{form_label(form.contenu)}}</div>
+			<div class="col article_contenu">{{form_widget(form.contenu)}}</div>
+			<div class="w-100"></div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-3">
+				<a href="{{path('home')}}">Retour à l'accueil</a>
+			</div>
+			<div class="col-sm-3">
+				{{form_row(form.enregistrer)}}
+			</div>
+			{{form_end(form)}}
+		</div>
+		<br>
+
+</div>
+</div>
+{% endblock %}

@@ -5,23 +5,57 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
         	<link rel="stylesheet" type="text/css" href="/assets/css/yogastyle.css">
+        	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        	crossorigin="anonymous">
+        	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        	crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"></script>
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </head>
 
     <body>
-    <div id ="main">
-	    {% block body %}
-	    	{% block header %}<header>YOGA BLOG/HEADER</header>{% endblock %}
-			<div class="subtitle">
-				{% block subtitle %}<nav>A PROPOS DE CE BLOG</nav>{% endblock %}
-			</div>
-	        <div class="wrapper">
-		        <div>{% block content %}{% endblock %}</div>
-				<div class="aside">{% block aside %}ASIDE{% endblock %}</div>
-		    </div>
+    
+	{% block body %}
+	<div id="container">
 
-		    {% block pagination %}{% endblock %}
+	    	{% block header %}
+	    	<header>
+	    		<nav>
+		    		<ul class="nav_item">
+		    			<li><a href="{{path('home')}}" class="nav_link">
+		    				Tous les billets</a></li>
+		    			<li><a href="{{path('add')}}" class="nav_link">
+		    				Ajouter un billet</a></li>
+		    			<li><a href="#" class="nav_link">
+		    				Contact</a></li>
+
+			    		{% if is_granted('ROLE_USER') %}
+			    		<li class="nav_link">Coucou {{ app.user.getuserName()}}
+			    		</li>
+			    		<li><a href="#" class="nav_link">Se déconnecter</li>
+			    		{% endif %}
+		    		</ul>
+	    		</nav>
+	    	</header>
+
+	    	{% endblock %}
+			<div class="subtitle">
+			{% block subtitle %}A PROPOS DE CE BLOG{% endblock %}
+			</div>
+	        {#<div class="wrapper">#}
+		    {% block content %}{% endblock %}
+			{#<div class="aside">{% block aside %}ASIDE{% endblock %}</div>#}
+		    {#</div>#}
+		    <div class="pagination">
+		    	{% block pagination %}
+				{% endblock %}
+			</div>
 		    	{#Add a pagination #}
 	    {% endblock %}
 	</div>

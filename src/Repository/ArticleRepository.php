@@ -19,32 +19,46 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Article[] Returns an array of Article objects
+    */
+    public function findAllOrderByDate()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('a.date', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Article
+    // get next et previous articles pour pagination
+    public function getNextArticle($articleId)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->createQueryBuilder('a')
+                ->where('a.id > :currentArticleId')
+                ->setParameter('currentArticleId', $articleId)
+                ->orderBy('a.id','ASC')
+                ->setMaxResults(1)
+                ;
+
+        $query = $qb->getQuery();
+        $nextArticle = $query->getOneOrNullResult();
+
+        return $nextArticle;
     }
-    */
+
+    public function getPreviousArticle($articleId)
+    {
+        $qb = $this->createQueryBuilder('a')
+                ->where('a.id < :currentArticleId')
+                ->setParameter('currentArticleId', $articleId)
+                ->orderBy('a.id','DESC')
+                ->setMaxResults(1)
+                ;
+
+        $query = $qb->getQuery();
+        $previousArticle = $query->getOneOrNullResult();
+        
+        return $previousArticle;
+    }
 }
