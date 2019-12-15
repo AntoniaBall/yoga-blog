@@ -76,14 +76,14 @@ class Article
 
         return $this;
     }
-    public function setCategory()
+    public function setCategory(Category $category)
     {
         $this->category = $category;
 
         return $this;
     }
-     public function getCategory() : ?Category
+     public function getCategory()
     {
-        return $this;
+        return $this->category;
     }
 }

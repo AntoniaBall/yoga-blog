@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Form\ArticleType;
+use App\Form\CategorySelectedType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,16 +17,42 @@ class ArticleController extends AbstractController
 	* @Route("/home", name ="home")
 	*
 	*/
-	public function getAllArticles()
+	public function list(Request $request)
 	{
-		//pss, repository !!
 		$repository = $this->getDoctrine()
 					->getRepository(Article::class);
-		
+
 		$articles = $repository->findAllOrderByDate();
 
-		return $this->render('articles.html.twig',
-			['articles' => $articles]);
+		$form = $this->createForm(CategorySelectedType::class);
+		$form->handleRequest($request);
+
+		$category = $form->get('category')->getData();
+
+		if(!$category)
+		{
+			//pss, repository !!
+			$repository = $this->getDoctrine()
+					->getRepository(Article::class);
+		
+			$articles = $repository->findAllOrderByDate();
+
+
+			return $this->render('articles.html.twig',[
+				'articles' => $articles,
+				'form' => $form->createView()
+			]);
+		}
+
+		else if($form->isSubmitted())
+		{
+			$articles = $category->getArticles();
+			return $this->render('articles.html.twig', [
+				'articles' => $articles,
+				'form' => $form->createView()
+
+			]);
+		}
 	}
 
 	/**
@@ -73,5 +101,36 @@ class ArticleController extends AbstractController
 		return $this->render('articleadd.html.twig',[
 			'form' => $form->createView()
 		]);
+	}
+
+	/**
+	* @Route("/api/articles", name="api_articles")
+	*
+	*/
+	public function AllArticles()
+	{
+		$response = new Response();
+
+		$articles = $this->getDoctrine()
+							->getRepository(Article::class)
+							->findAll();
+
+		$articlesSerialized = [];
+
+	    foreach ($articles as $article) {
+	    	$articlesSerialized[] = 
+	    	[
+	    		'id' => $article->getId(),
+	    		'title' => $article->getTitre(),
+	    		'content' => $article->getContenu()
+	    	];
+	    }
+
+	    $response->setContent(json_encode($articlesSerialized));
+
+	    $response->headers->set('Content-Type', 'Application/Json');
+
+	    return $response;
+		// return new Response(json_encode($articlesSerialized));
 	}
 }

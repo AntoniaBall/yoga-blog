@@ -2,20 +2,30 @@
 
 {% block title %}Titre des articles enregistrés{% endblock %}
 
-{# voici une liste de tableaux dans articles, fais ce que tu veux avec #}
-
 {% block content %}
-	{% if articles is empty %}
-		<p>Reviens plus tard, il n'y a rien.</p>
-	{% else %}
+
+{{form_start(form)}}
+{{form_end(form)}}
+
+{% if articles is empty %}
+	<p>Reviens plus tard, il n'y a rien.</p>
+{% else %}
 	{% for article in articles %}
 		<div class="articles_style">
-			<h5>{{ article.titre}}</h5>
-			<p> {{ article.contenu|slice(1,100)}}</p>
-			<p> Le {{ article.date|date("d/m/y")}} 
-			<a href="{{ path('showArticle',{ articleId : article.id } ) }}"
-						class="btn btn-primary"> Voir l'article</a></p>
+			<h5>
+				{{ article.titre}}
+			</h5>
+			<p>
+				{{ article.contenu|slice(1,100)}}
+			</p>
+			<p>
+				Le {{ article.date|date("d/m/y")}}
+			</p>
+			<p>
+				<a href="{{ path('showArticle',{ articleId : article.id } ) }}"
+				class="btn btn-primary">Voir l'article</a>
+			</p>
 		</div>
 	{% endfor %}
-	{% endif %}
+{% endif %}
 {% endblock %}

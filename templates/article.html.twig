@@ -4,23 +4,42 @@
 
 {% block subtitle %}
 	<div class="subtitle">
-		<div class="article_title"><h2>{{ article.titre}}</h2></div>
-		<div class="article_date">{{ article.date|date("d/m/y")}}</div>
+		<div class="article_title">
+			<h2>{{ article.titre}}</h2>
+		</div>
+		<div class="article_date">
+			{{ article.date|date("d/m/y")}}
+		</div>
 		<a href="{{path('home')}}" class="pagination_link">Retour à l'accueil</a>
 	</div>
 {% endblock %}
 
 {% block content %}
-	<div class="article_content">{{ article.contenu|raw }}</div>
+	<div class="article_content">
+		{{ article.contenu|raw }}
+	</div>
 {% endblock %}
 
 {% block pagination %} 
 <div class="container">
-<div class="row">
-  <div class="col"><a href="{{ path('showArticle', { articleId : previousArticle.id} ) }}" 
-  	class="pagination_link_previous"> << Précedent</a></div>
-  <div class="col"><a href="{{ path('showArticle', { articleId : nextArticle.id} ) }}" 
-  	class="pagination_link_next">Suivant >></a></div>
-</div>
+	<div class="row">
+		  <div class="col">
+		  	{% if previousArticle is empty %}
+		  		<a href="#" class="pagination_link_previous"> << Précedent</a>
+			{% else %}
+		  		<a href="{{ path('showArticle', { articleId : previousArticle.id} ) }}" 
+		  		class="pagination_link_previous"> << Précedent</a>
+		  	{% endif %}
+
+		  </div>
+		  <div class="col">
+		  	{% if nextArticle is empty %}
+		  		<a href="#" class="pagination_link_next">Suivant >> </a>
+		  	{% else %}
+		  		<a href="{{ path('showArticle', { articleId : nextArticle.id} ) }}" 
+		  		class="pagination_link_next">Suivant >> </a>
+		  	{% endif %}
+		  </div>
+	</div>
 </div>
  {% endblock %}

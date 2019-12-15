@@ -28,27 +28,41 @@
 	    	<header>
 	    		<nav>
 		    		<ul class="nav_item">
-		    			<li><a href="{{path('home')}}" class="nav_link">
-		    				Tous les billets</a></li>
-		    			<li><a href="{{path('add')}}" class="nav_link">
-		    				Ajouter un billet</a></li>
-		    			<li><a href="#" class="nav_link">
-		    				Contact</a></li>
+		    			<li>
+		    				<a href="{{path('home')}}" class="nav_link">
+		    				Tous les billets</a>
+		    			</li>
+		    			<li>
+		    				<a href="{{path('add')}}" class="nav_link">
+		    				Ajouter un billet</a>
+		    			</li>
+		    			<li>
+		    				<a href="#" class="nav_link">
+		    				Contact</a>
+		    			</li>
 
 			    		{% if is_granted('ROLE_USER') %}
-			    		<li class="nav_link">Coucou {{ app.user.getuserName()}}
-			    		</li>
-			    		<li><a href="#" class="nav_link">Se déconnecter</li>
+				    		<li class="nav_link">Coucou {{ app.user.getuserName()}}
+				    		</li>
+				    		<li>
+				    			<a href="{{path('home')}}" class="nav_link">Se déconnecter></a>
+				    		</li>
 			    		{% endif %}
 		    		</ul>
 	    		</nav>
-	    	</header>
+	    		{% for message in app.flashes('info') %}
+        			<div class="alert alert-success">
+            		{{ message }}
+    				</div>
+    			{% endfor %}
+		    	</header>
 
 	    	{% endblock %}
 			<div class="subtitle">
 			{% block subtitle %}A PROPOS DE CE BLOG{% endblock %}
 			</div>
 	        {#<div class="wrapper">#}
+	        {% block searchnav %}{% endblock %}
 		    {% block content %}{% endblock %}
 			{#<div class="aside">{% block aside %}ASIDE{% endblock %}</div>#}
 		    {#</div>#}

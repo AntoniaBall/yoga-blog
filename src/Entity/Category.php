@@ -19,14 +19,13 @@ class Category
     private $id;
 
 
-    /*
-    * @ORM\Column(type=string, length=150)
+    /**
+    * @ORM\Column(type="string", length=150)
     */
     private $name;
 
 
-    /*
-    *
+    /**
     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
     */
     private $articles;
@@ -45,7 +44,6 @@ class Category
     {
         return $this->name;
     }
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -53,5 +51,9 @@ class Category
     public function getArticles() : Collection
     {
         return $this->articles;
+    }
+    public function __toString() : string
+    {
+        return $this->name;
     }
 }
