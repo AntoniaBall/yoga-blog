@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Form\ArticleType;
 use App\Form\CategorySelectedType;
+use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,8 +23,6 @@ class ArticleController extends AbstractController
 		$repository = $this->getDoctrine()
 					->getRepository(Article::class);
 
-		$articles = $repository->findAllOrderByDate();
-
 		$form = $this->createForm(CategorySelectedType::class);
 		$form->handleRequest($request);
 
@@ -31,28 +30,16 @@ class ArticleController extends AbstractController
 
 		if(!$category)
 		{
-			//pss, repository !!
-			$repository = $this->getDoctrine()
-					->getRepository(Article::class);
-		
 			$articles = $repository->findAllOrderByDate();
-
-
-			return $this->render('articles.html.twig',[
-				'articles' => $articles,
-				'form' => $form->createView()
-			]);
 		}
-
-		else if($form->isSubmitted())
-		{
+		else{
 			$articles = $category->getArticles();
-			return $this->render('articles.html.twig', [
+		}
+		
+		return $this->render('articles.html.twig', [
 				'articles' => $articles,
 				'form' => $form->createView()
-
 			]);
-		}
 	}
 
 	/**
@@ -79,7 +66,7 @@ class ArticleController extends AbstractController
 	* @Route("/add", name="add")
 	*
 	*/
-	public function addArticle(Request $request)
+	public function addArticle(Request $request, FileUploader $fileUploader)
 	{
 		// création formulaire à partir de Article Type
 		$article = new Article();
@@ -91,11 +78,19 @@ class ArticleController extends AbstractController
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$entitymanager = $this->getDoctrine()->getManager();
-			$entitymanager->persist($article);
-			$entitymanager->flush();
+			 /** @var UploadedFile $brochureFile */
+        	$brochureFile = $form['brochure']->getData();
+
+        	if ($brochureFile) {
+	            $brochureFileName = $fileUploader->upload($brochureFile);
+	            $article->setBrochureFilename($brochureFileName);
+				$entitymanager = $this->getDoctrine()->getManager();
+				$entitymanager->persist($article);
+				$entitymanager->flush();
+			}
 
 			$this->addFlash('success', 'Article ajouté avec succès');
+			return $this->redirectToRoute("add");
 		}
 
 		return $this->render('articleadd.html.twig',[

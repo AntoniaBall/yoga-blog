@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class ArticleType extends AbstractType
 {
@@ -20,10 +22,28 @@ class ArticleType extends AbstractType
             ->add('titre', TextType::class)
             ->add('date', DateType::class)
             ->add('contenu', TextType::class)
-            ->add('enregistrer', SubmitType::class)
             ->add('category', EntityType::class, [
                     'class' => Category::class,
-            ]);
+                    'required' => true,
+                    'placeholder' => 'Choisir une categorie'
+            ])
+            ->add('brochure', Filetype::class,[
+                    'label' => 'Brochure (PDF File)',
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '1024k',
+                            'mimeTypes' =>[
+                                'application/pdf',
+                                'application/x-pdf',
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid PDF Document',
+                        ])
+                    ],
+            ])
+            ->add('enregistrer', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

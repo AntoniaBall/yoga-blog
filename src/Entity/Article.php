@@ -26,7 +26,7 @@ class Article
      */
     private $date;
 
-     /**
+    /**
      * @ORM\Column(type="text")
      */
     private $contenu;
@@ -35,6 +35,11 @@ class Article
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $brochureFileName;
 
     public function getId()
     {
@@ -53,7 +58,7 @@ class Article
         return $this;
     }
 
-       public function getdate()
+    public function getdate()
     {
         return $this->date;
     }
@@ -65,7 +70,7 @@ class Article
         return $this;
     }
 
-       public function getContenu()
+    public function getContenu()
     {
         return $this->contenu;
     }
@@ -85,5 +90,15 @@ class Article
      public function getCategory()
     {
         return $this->category;
+    }
+    public function setBrochureFileName($brochureFileName)
+    {
+         $this->brochureFileName = $brochureFileName;
+
+        return $this;
+    }
+    public function getBrochureFileName()
+    {
+        return $this->brochureFileName;
     }
 }
