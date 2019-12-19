@@ -1,0 +1,78 @@
+<?php
+
+namespace App\DataFixtures;
+
+use App\Entity\Article;
+use App\Entity\Category;
+use App\Entity\User;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
+
+class AppFixtures extends Fixture
+{
+	private $categories;
+	
+	private $articles;
+
+	private $manager;
+
+    public function load(ObjectManager $manager)
+    {
+		$this->manager = $manager;
+		$this->loadCategory();
+		$this->loadArticle();
+		$this->loadUser();
+	}
+
+	public function loadCategory()
+	{
+        for ($i=0; $i<2; $i++)
+    	{	
+    		$category = new Category();
+			$category->setName("Category ".$i);
+			$this->categories[$i] = $category;
+			$this->manager->persist($category);
+		}
+		$this->manager->flush();
+
+	}
+
+	public function loadArticle()
+	{
+		for ($i=0; $i<10; $i++)
+		{	
+			$article = new Article();
+    		$article->setTitre("10 bonnes raisons de se mettre au yoga");
+    		$article->setContenu("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+		        		do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+		        		Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris
+		        		 nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor i
+		        		  reprehenderit in voluptate velit essecillum dolore eu fugiat nulla 
+		        		  pariatur. Excepteur sint occaecat cupidatat non
+		        		proident, sunt in culpa qui officia deserunt mollit anim
+		        		id est laborum.");
+			$article->setDate(new \Datetime('NOW'));
+			
+			$categoryCount = count($this->categories);
+
+			$key = array_rand($this->categories);
+
+				$article->setCategory($this->categories[$key]);
+
+			$this->manager->persist($article);
+			$this->manager->flush();
+    	}
+
+	}
+	public function loadUser()
+    {
+        // génère 1 user
+        $user = new User();
+        $user->setUsername('antonia');
+        $user->setEmail("ranivoson.antonia@gmail.com");
+        $user->setPassword('$2y$10$/QcdAhLhg5aRgKj4bHmeRuEUafL.CjcgW0vY8nQX6/NbR/KqsmWtO');
+        $user->setEnabled('true');
+    	$this->manager->persist($user);
+        $this->manager->flush();
+    }
+}

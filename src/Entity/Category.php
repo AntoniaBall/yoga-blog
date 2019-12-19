@@ -54,6 +54,10 @@ class Category
     }
     public function __toString() : string
     {
-        return $this->name;
+        if ($this->name == null){
+            $this->name = "";
+        }
+        return  $this->name;
+        
     }
 }
