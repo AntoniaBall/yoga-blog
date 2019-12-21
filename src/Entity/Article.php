@@ -115,8 +115,6 @@ class Article
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
-        // $imageFile n'est pas écouté par Doctrine, il faudra rajouter une varible date de MAJ
-        // pour que vich detecte qu'une nouvelle image est uploadée et fonctionne
         if($image)
         {
             $this->updatedAt = new \Datetime("now");

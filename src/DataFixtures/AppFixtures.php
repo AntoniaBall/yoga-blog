@@ -52,12 +52,14 @@ class AppFixtures extends Fixture
 		        		proident, sunt in culpa qui officia deserunt mollit anim
 		        		id est laborum.");
 			$article->setDate(new \Datetime('NOW'));
-			
+
 			$categoryCount = count($this->categories);
-
 			$key = array_rand($this->categories);
+			$article->setCategory($this->categories[$key]);
 
-				$article->setCategory($this->categories[$key]);
+			$imagesFixtures = ["default/yoga1.jpg","default/yoga2.jpg", "default/yoga3.jpg"];
+			$randimage = $imagesFixtures[array_rand($imagesFixtures)];
+			$article->setImage($randimage);
 
 			$this->manager->persist($article);
 			$this->manager->flush();
