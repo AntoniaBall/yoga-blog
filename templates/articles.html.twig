@@ -10,22 +10,26 @@
 {% if articles is empty %}
 	<p>Reviens plus tard, il n'y a rien.</p>
 {% else %}
+<div class="container">
 	{% for article in articles %}
-		<div class="articles_style">
-			<h5>
-				{{ article.titre}}
-			</h5>
+		<div class="articles_style card" style="width: 20rem;">
 			<p>
-				{{ article.contenu|slice(1,100)}}
+ 				<img class="card-img-top"
+ 				     src="{{ vich_uploader_asset(article, 'imageFile') }}"
+ 				     alt="Card image cap {{article.image}}"
+ 				/>
 			</p>
+			 <div class="card-body">
+    			<h5 class="card-title">{{ article.titre}}</h5>
+    			<p class="card-text">{{ article.contenu|slice(1,100)}}</p>
+				<p class="card-text">Le {{ article.date|date("d/m/y")}}</p>
+    			<p><a href="{{ path('showArticle',{ articleId : article.id } ) }}" class="btn btn-primary">
+				Voir l'article</a></p>
+  			</div>
 			<p>
-				Le {{ article.date|date("d/m/y")}}
-			</p>
-			<p>
-				<a href="{{ path('showArticle',{ articleId : article.id } ) }}"
-				class="btn btn-primary">Voir l'article</a>
 			</p>
 		</div>
 	{% endfor %}
+</div>
 {% endif %}
 {% endblock %}

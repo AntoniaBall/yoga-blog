@@ -80,15 +80,14 @@ class ArticleController extends AbstractController
 		{
 			 /** @var UploadedFile $brochureFile */
         	$brochureFile = $form['brochure']->getData();
+        	$entitymanager = $this->getDoctrine()->getManager();
 
         	if ($brochureFile) {
 	            $brochureFileName = $fileUploader->upload($brochureFile);
 	            $article->setBrochureFilename($brochureFileName);
-				$entitymanager = $this->getDoctrine()->getManager();
-				$entitymanager->persist($article);
-				$entitymanager->flush();
 			}
-
+			$entitymanager->persist($article);
+			$entitymanager->flush();
 			$this->addFlash('success', 'Article ajouté avec succès');
 			return $this->redirectToRoute("add");
 		}
