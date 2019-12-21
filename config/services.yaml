@@ -6,6 +6,8 @@
 parameters:
     mailer_user: "%env(MAILER_USER)%"
     brochures_directory: "%env(BROCHURES_DIRECTORY)%"
+    app.path.article_image: "%env(IMAGES_DIRECTORY)%"
+    
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -29,3 +31,5 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%brochures_directory%'
+
+            

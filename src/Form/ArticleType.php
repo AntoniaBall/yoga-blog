@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ArticleType extends AbstractType
 {
@@ -33,7 +34,7 @@ class ArticleType extends AbstractType
                     'required' => false,
                     'constraints' => [
                         new File([
-                            'maxSize' => '1024k',
+                            'maxSize' => '2048k',
                             'mimeTypes' =>[
                                 'application/pdf',
                                 'application/x-pdf',
@@ -41,6 +42,9 @@ class ArticleType extends AbstractType
                             'mimeTypesMessage' => 'Please upload a valid PDF Document',
                         ])
                     ],
+            ])
+            ->add('imageFile', VichFileType::class, [
+                'required' => false
             ])
             ->add('enregistrer', SubmitType::class)
         ;
