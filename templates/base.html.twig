@@ -33,8 +33,8 @@
 		    				Tous les billets</a>
 		    			</li>
 		    			<li>
-		    				<a href="{{path('add')}}" class="nav_link">
-		    				Ajouter un billet</a>
+		    				<a href="{{path('admin_home')}}" class="nav_link">
+		    				Admin</a>
 		    			</li>
 		    			<li>
 		    				<a href="#" class="nav_link">
@@ -45,7 +45,7 @@
 				    		<li class="nav_link">Coucou {{ app.user.getuserName()}}
 				    		</li>
 				    		<li>
-				    			<a href="{{path('home')}}" class="nav_link">Se déconnecter></a>
+				    			<a href="/logout" class="nav_link">Se déconnecter></a>
 				    		</li>
 			    		{% endif %}
 		    		</ul>

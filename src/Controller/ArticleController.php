@@ -42,28 +42,55 @@ class ArticleController extends AbstractController
 			]);
 	}
 
+
 	/**
-	* @Route("/article/{articleId}", name="showArticle")
+	* @Route("/admin", name ="admin_home")
 	*
 	*/
-	public function showArticle($articleId)
+	public function listAdmin(Request $request)
+	{
+		$repository = $this->getDoctrine()
+					->getRepository(Article::class);
+
+		$form = $this->createForm(CategorySelectedType::class);
+		$form->handleRequest($request);
+
+		$category = $form->get('category')->getData();
+
+		if(!$category)
+		{
+			$articles = $repository->findAllOrderByDate();
+		}
+		else{
+			$articles = $category->getArticles();
+		}
+		
+		return $this->render('admin.html.twig', [
+				'articles' => $articles,
+				'form' => $form->createView()
+			]);
+	}
+
+	/**
+	* @Route("/article/{article}", name="showArticle")
+	*/
+	public function showArticle(Article $article)
 	{	
 		$repository = $this-> getDoctrine()
 						   ->getRepository(Article::class);
 
-		$currentArticle = $repository->find($articleId);
-		$previousArticle = $repository->getPreviousArticle($articleId);
-		$nextArticle = $repository->getNextArticle($articleId);
+		$previousArticle = $repository->getPreviousArticle($article->getId());
+		$nextArticle = $repository->getNextArticle($article->getId());
 
 		return $this->render('article.html.twig', [
-				'article' => $currentArticle,
+				'article' => $article,
 				'previousArticle' => $previousArticle,
 				'nextArticle' => $nextArticle
 		] );
 	}
 	
 	/**
-	* @Route("/add", name="add")
+	* @Route("/admin/add", name="add")
 	*
 	*/
 	public function addArticle(Request $request, FileUploader $fileUploader)
@@ -95,6 +122,54 @@ class ArticleController extends AbstractController
 		return $this->render('articleadd.html.twig',[
 			'form' => $form->createView()
 		]);
+	}
+
+	/**
+	* @Route("/admin/update/{article}", name ="update")
+	*
+	*/
+	public function update(Request $request, Article $article)
+	{
+		$form = $this->createForm(ArticleType::class, $article);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+        	$brochureFile = $form['brochure']->getData();
+
+        	$entitymanager = $this->getDoctrine()->getManager();
+			
+			if ($brochureFile) {
+	        	$brochureFileName = $fileUploader->upload($brochureFile);
+	            $article->setBrochureFilename($brochureFileName);
+			}
+			$entitymanager->persist($article);
+			$entitymanager->flush();
+
+			$this->addFlash('update_success', 'Article modifié avec succès !');
+
+			return $this->redirectToRoute("update", [
+				'article' => $article->getId()
+			]);
+		}
+
+		return $this->render('articleupdate.html.twig', [
+			'articleUpdated' => $article,
+			'form' => $form->createView()
+		]
+		);
+	}
+
+	/**
+	* @Route("/admin/delete/{article}", name ="delete")
+	*
+	*/
+	public function delete(Request $request, Article $article)
+	{
+        $entitymanager = $this->getDoctrine()->getManager();
+		$entitymanager->remove($article);
+		$entitymanager->flush();
+		return $this->redirectToRoute("admin_home");
 	}
 
 	/**

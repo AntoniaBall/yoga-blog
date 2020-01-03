@@ -3,14 +3,20 @@
 {% block title %}Un article{% endblock %}
 
 {% block subtitle %}
-	<div class="subtitle">
-		<div class="article_title">
-			<h2>{{ article.titre}}</h2>
-		</div>
-		<div class="article_date">
-			{{ article.date|date("d/m/y")}}
-		</div>
-		<a href="{{path('home')}}" class="pagination_link">Retour à l'accueil</a>
+	<div class= "card card bg-dark text-white">
+			<img class="card-img" 
+ 				src="{{ vich_uploader_asset(article, 'imageFile') }}"
+ 				alt="{{article.image}}"
+ 			/>
+ 			<div class="card-img-overlay">
+ 				<div class="card-title">
+					<h2 class="card-text">{{ article.titre}}</h2>
+				</div>
+				<div class="article_date">
+					<p class="card-text">{{ article.date|date("d/m/y")}}</p>
+				</div>
+					<a href="{{path('home')}}" class="pagination_link">Retour à l'accueil</a>
+ 			</div>
 	</div>
 {% endblock %}
 
@@ -27,7 +33,7 @@
 		  	{% if previousArticle is empty %}
 		  		<a href="#" class="pagination_link_previous"> << Précedent</a>
 			{% else %}
-		  		<a href="{{ path('showArticle', { articleId : previousArticle.id} ) }}" 
+		  		<a href="{{ path('showArticle', { article: previousArticle.id} ) }}" 
 		  		class="pagination_link_previous"> << Précedent</a>
 		  	{% endif %}
 
@@ -36,7 +42,7 @@
 		  	{% if nextArticle is empty %}
 		  		<a href="#" class="pagination_link_next">Suivant >> </a>
 		  	{% else %}
-		  		<a href="{{ path('showArticle', { articleId : nextArticle.id} ) }}" 
+		  		<a href="{{ path('showArticle', { article : nextArticle.id} ) }}" 
 		  		class="pagination_link_next">Suivant >> </a>
 		  	{% endif %}
 		  </div>

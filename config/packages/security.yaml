@@ -4,7 +4,7 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       ROLE_USER, ROLE_ADMIN
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -21,6 +21,7 @@ security:
 
             logout:
                 handlers: [App\FOSUserBundle\Listeners\LogoutListener]
+                target: /login
 
             anonymous:    true
 
@@ -35,6 +36,6 @@ security:
 
     access_control:
         # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/add, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_USER }
         #- { path: ^/profile, roles: ROLE_USER }
 

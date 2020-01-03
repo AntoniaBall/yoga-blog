@@ -44,7 +44,7 @@ class ArticleType extends AbstractType
                     ],
             ])
             ->add('imageFile', VichFileType::class, [
-                'required' => false
+                'required' => true
             ])
             ->add('enregistrer', SubmitType::class)
         ;

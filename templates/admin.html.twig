@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+<title>Administration</title>
+{% endblock %}
+
+{% block subtitle %}
+  <a href=" {{ path('add')}}">Ajouter un article</a>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Article</th>
+      <th scope="col">Catégorie</CENTER></th>
+      <th scope="col">Date</th>
+      <th scope="col">Actions</th>
+      <th scope="col">Documents</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for article in articles %}
+	    <tr>
+	      <td>{{ article.titre}}</td>
+	      <td>{{ article.category}}</td>
+	      <td>Le {{ article.date|date("d/m/y")}}</td>
+	      <td><a href="{{ path('update', { article : article.id } ) }}">Modifier</a>
+	      	<a href="{{ path('delete', { article : article.id } ) }}" onclick="return confirm('êtes-vous sure de vouloir supprimer cet article ?') ">Supprimer</a></td>
+	      <td></td>
+	    </tr>
+	{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

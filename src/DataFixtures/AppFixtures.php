@@ -39,11 +39,12 @@ class AppFixtures extends Fixture
 
 	public function loadArticle()
 	{
+    	$currentDate = new \Datetime();
 		for ($i=0; $i<10; $i++)
 		{	
 			$article = new Article();
     		$article->setTitre("10 bonnes raisons de se mettre au yoga");
-    		$article->setContenu("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+    		$article->setContenu("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed-+
 		        		do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 		        		Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris
 		        		 nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor i
@@ -51,7 +52,8 @@ class AppFixtures extends Fixture
 		        		  pariatur. Excepteur sint occaecat cupidatat non
 		        		proident, sunt in culpa qui officia deserunt mollit anim
 		        		id est laborum.");
-			$article->setDate(new \Datetime('NOW'));
+			$article->setDate($currentDate);
+			$currentDate = $currentDate->modify('+1 day');
 
 			$categoryCount = count($this->categories);
 			$key = array_rand($this->categories);
