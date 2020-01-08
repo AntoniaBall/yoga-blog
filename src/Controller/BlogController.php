@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,10 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BlogController extends AbstractController
 {
 	/**
-	* @Route("/home"), name="homepage"
+	* @Route("/contact", name ="contact")
 	*/
-	public function index()
+	public function contact()
 	{
-		return $this->render('base.html.twig');
+		$form = $this->createForm(ContactType::class);
+
+		return $this->render('contact.html.twig', [
+			'contact_form' => $form->createView()
+		]);
 	}
 }

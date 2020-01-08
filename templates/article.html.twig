@@ -4,8 +4,8 @@
 
 {% block subtitle %}
 	<div class= "card card bg-dark text-white">
-			<img class="card-img" 
- 				src="{{ vich_uploader_asset(article, 'imageFile') }}"
+			<img class="card-img image-article" 
+ 				src="{{ asset(vich_uploader_asset(article, 'imageFile')) }}"
  				alt="{{article.image}}"
  			/>
  			<div class="card-img-overlay">
@@ -33,6 +33,24 @@
 		  	{% if previousArticle is empty %}
 		  		<a href="#" class="pagination_link_previous"> << Précedent</a>
 			{% else %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
 		  		<a href="{{ path('showArticle', { article: previousArticle.id} ) }}" 
 		  		class="pagination_link_previous"> << Précedent</a>
 		  	{% endif %}

@@ -173,7 +173,7 @@ class ArticleController extends AbstractController
 	}
 
 	/**
-	* @Route("/api/articles", name="api_articles")
+	* @Route("/old/api/articles/", name="api_articles")
 	*
 	*/
 	public function AllArticles()
@@ -190,7 +190,7 @@ class ArticleController extends AbstractController
 	    	$articlesSerialized[] = 
 	    	[
 	    		'id' => $article->getId(),
-	    		'title' => $article->getTitre(),
+	    		'titre' => $article->getTitre(),
 	    		'content' => $article->getContenu()
 	    	];
 	    }
@@ -202,4 +202,5 @@ class ArticleController extends AbstractController
 	    return $response;
 		// return new Response(json_encode($articlesSerialized));
 	}
+	
 }

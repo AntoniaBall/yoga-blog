@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Titre des articles enregistrés{% endblock %}
+{% block title %}Titre des articles enregistré
+{% endblock %}
 
 {% block content %}
 
@@ -14,8 +15,8 @@
 	{% for article in articles %}
 		<div class="articles_style col mb-3">
 			<p>
- 				<img class="card-img-top"
- 				     src="{{ vich_uploader_asset(article, 'imageFile') }}"
+ 				<img class="card-img-top img-fluid"
+ 				     src="{{ asset(vich_uploader_asset(article, 'imageFile')) }}"
  				     alt="Card image cap {{article.image}}"
  				/>
 			</p>

@@ -74,6 +74,10 @@ li
   	text-align: left;
 }
  */
+.image-article
+{
+	max-width: 50%;
+}
 .wrapper
 {
 	padding : 2em;

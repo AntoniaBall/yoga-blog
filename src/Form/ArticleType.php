@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -22,7 +23,7 @@ class ArticleType extends AbstractType
         $builder
             ->add('titre', TextType::class)
             ->add('date', DateType::class)
-            ->add('contenu', TextType::class)
+            ->add('contenu', TextareaType::class)
             ->add('category', EntityType::class, [
                     'class' => Category::class,
                     'required' => true,

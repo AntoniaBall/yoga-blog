@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container">
+{{form_start(contact_form)}}
+{{form_errors(contact_form)}}
+	<div class="row">
+		<div class="col-sm-3">
+			{{form_label(contact_form.name)}}
+		</div>
+		<div class="col">
+			{{form_widget(contact_form.name)}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			{{form_label(contact_form.email)}}
+		</div>
+		<div class="col">
+			{{form_widget(contact_form.email)}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-3">
+			{{form_label(contact_form.message)}}
+		</div>
+		<div class="col">
+			{{form_widget(contact_form.message)}}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-3">
+			{{form_label(contact_form.envoyer)}}
+		</div>
+		<div class="col">
+			{{form_widget(contact_form.envoyer)}}
+		</div>
+	</div>
+</div>
+{% endblock %}

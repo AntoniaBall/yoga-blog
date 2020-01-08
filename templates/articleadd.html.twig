@@ -34,21 +34,50 @@
 				</div>
 			</div>
 			<br>
+
 			<div class="row">
 				<div class="col-sm-3">
 					{{form_label(form.contenu)}}
 				</div>
 				<div class="col article_contenu">
-					{{form_widget(form.contenu)}}
-				</div>
-				<div class="col article_contenu">
-					{{form_row(form.brochure)}}
+					{{	form_widget(form.contenu, {'attr': {'cols':'50', 'rows':'10'}}) }}
 				</div>
 				<div class="w-100">
 				</div>
 
 			</div>
 			<br>
+			<div class="row">
+				<div class="col-sm-3">
+					{{form_label(form.category)}}
+				</div>
+				<div class="col">
+					{{form_widget(form.category)}}
+				</div>
+				<div class="w-100">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					{{form_label(form.imageFile)}}
+				</div>
+				<div class="col">
+					{{form_widget(form.imageFile)}}
+				</div>
+				<div class="w-100">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3">
+					{{form_label(form.brochure)}}
+				</div>
+				<div class="col">
+					{{form_widget(form.brochure)}}
+				</div>
+				<div class="w-100">
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-sm-3">
 					<a href="{{path('home')}}">Retour à l'accueil</a>

@@ -4,9 +4,18 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Symfony\Component\HttpFoundation\File\File;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *   normalizationContext= {"groups"={"read"}},
+ *   denormalizationContext={"groups"={"write"}}
+ *  )
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @Vich\Uploadable
  */
@@ -16,21 +25,27 @@ class Article
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"read", "write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
+     * @ApiFilter(SearchFilter::class, strategy="partial")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"read", "write"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"read", "write"})
+     * @Assert\Length(max=50)
      */
     private $contenu;
 
@@ -41,13 +56,21 @@ class Article
     
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"read", "write"})
      */
     private $brochureFileName;
 
     /**
      * @ORM\Column(type="string", length=250, nullable = true)
+     * @Groups({"read", "write"})
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable = true)
+     * @Groups({"read", "write"})
+     */
+    private $imageCreated;
 
     /**
      * @Vich\UploadableField(mapping="article_image", fileNameProperty="image")
@@ -58,6 +81,7 @@ class Article
     /**
      * @ORM\Column(type="datetime", nullable = true)
      * @var \Datetime
+     * @Groups({"read", "write"})
      */
     private $updatedAt;
     
