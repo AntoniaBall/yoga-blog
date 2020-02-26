@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
     {
 		$this->manager = $manager;
 		$this->loadCategory();
-		$this->loadArticle();
+		$this->loadArticles();
 		$this->loadUser();
 	}
 
@@ -37,10 +37,10 @@ class AppFixtures extends Fixture
 
 	}
 
-	public function loadArticle()
+	public function loadArticles()
 	{
     	$currentDate = new \Datetime();
-		for ($i=0; $i<10; $i++)
+		for ($i=0; $i<30; $i++)
 		{	
 			$article = new Article();
     		$article->setTitre("10 bonnes raisons de se mettre au yoga");
